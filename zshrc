@@ -10,6 +10,7 @@ antigen bundle command-not-found
 # antigen bundle tmuxinator
 antigen bundle taskwarrior
 antigen bundle colored-man-pages
+antigen bundle sudo
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -43,11 +44,14 @@ alias tmux='TERM=xterm-256color tmux'
 alias tn='tasknote'
 alias ts='task summary'
 
+# Path
+export PATH=$PATH:~/path/
+
 # FZF
 source ~/.fzf.zsh
 
 # Don't share history
-setopt no_share_history
+# setopt no_share_history
 
 # Terminal type
 export TERM="xterm-256color"
