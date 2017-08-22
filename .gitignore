@@ -1,2 +1,3 @@
 # Ignore anything that Vundle already has covered
 vim/bundle/*
+vim/.netrwhist

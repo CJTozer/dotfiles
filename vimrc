@@ -60,6 +60,11 @@ imap <F6> <C-V>u2717
 inoremap <F2> <Esc>:w<CR>
 nnoremap <F2> :w<CR>
 
+" Markdown
+au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_folding_level = 2
+
 " Better controls for switching between tabs.
 nnoremap th :tabfirst<CR>
 nnoremap tj :tabnext<CR>
@@ -69,6 +74,13 @@ nnoremap tt :tabedit<Space>
 nnoremap tn :tabnext<Space>
 nnoremap tm :tabm<Space>
 nnoremap td :tabclose<CR>
+
+" Better pane navigation
+set mouse=a
+map <C-Left> <C-W>j
+map <C-Down> <C-W>k
+map <C-Up> <C-W>h
+map <C-Right> <C-W>l
 
 " Indenting things
 set autoindent
