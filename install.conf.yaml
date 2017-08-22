@@ -9,6 +9,9 @@
     ~/path/br:
         create: true
         path: bin/br
+    ~/path/git-shamend:
+        create: true
+        path: bin/git-shamend
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
     ~/.holidays: holidays
