@@ -12,7 +12,7 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle go
 antigen bundle command-not-found
-# antigen bundle tmuxinator
+antigen bundle tmuxinator
 antigen bundle taskwarrior
 antigen bundle colored-man-pages
 antigen bundle sudo
@@ -34,13 +34,21 @@ export BULLETTRAIN_PROMPT_SEPARATE_LINE=false
 export BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 export BULLETTRAIN_EXEC_TIME_SHOW=true
 export BULLETTRAIN_TIME_BG=magenta
-export BULLETTRAIN_TIME_FG=yellow
+export BULLETTRAIN_TIME_FG=black
+export BULLETTRAIN_CONTEXT_BG=black
+export BULLETTRAIN_CONTEXT_FG=red
 export BULLETTRAIN_CONTEXT_SHOW=true
 export BULLETTRAIN_GIT_EXTENDED=false # Simple 'is workspace dirty' only to save time on large codebases
+# Requires nerd-fonts (https://github.com/ryanoasis/nerd-fonts)
+export BULLETTRAIN_VIRTUALENV_PREFIX=
+export BULLETTRAIN_VIRTUALENV_BG=cyan
+export BULLETTRAIN_VIRTUALENV_FG=white
+BULLETTRAIN_PROMPT_ORDER=(time status custom context dir perl ruby virtualenv go git hg cmd_exec_time)
 antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
 # Tell antigen that you're done.
 antigen apply
+export ZSH_THEME_GIT_PROMPT_PREFIX=" "
 
 # Needed for ctrl-x ctrl-e to work for some reason...
 export EDITOR=vim

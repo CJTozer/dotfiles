@@ -6,3 +6,10 @@
 
 # ST
 *.sublime-*
+
+# Idea
+.idea
+
+# Python
+*.pyc
+__pycache__

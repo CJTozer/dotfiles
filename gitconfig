@@ -22,6 +22,8 @@
         ds = diff --stat
         info = status --porcelain -b
         findrev = svn log --date=local --show-commit -r
+        yolo = !git commit -m \"[yolo] $(curl -s whatthecommit.com/index.txt)\"
+        mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
 [color]
         ui = true
 [color "diff"]
@@ -41,5 +43,5 @@
         prompt = yellow bold
         help = white
 [push]
-        default = matching
+        default = simple
         followTags = true
