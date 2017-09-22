@@ -38,6 +38,8 @@ export BULLETTRAIN_TIME_FG=black
 export BULLETTRAIN_GIT_EXTENDED=false # Simple 'is workspace dirty' only to save time on large codebases
 # Requires nerd-fonts (https://github.com/ryanoasis/nerd-fonts)
 export BULLETTRAIN_VIRTUALENV_PREFIX=
+export BULLETTRAIN_VIRTUALENV_BG=cyan
+export BULLETTRAIN_VIRTUALENV_FG=white
 BULLETTRAIN_PROMPT_ORDER=(time status custom context dir perl ruby virtualenv go git hg cmd_exec_time)
 antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
