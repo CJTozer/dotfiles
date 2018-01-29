@@ -14,6 +14,7 @@
         cm = commit -m
         ca = commit -a
         cam = commit -a -m
+        fo = fetch origin
         amend = commit --amend
         l = log --graph --abbrev-commit --all --date=local --pretty=format:'%C(white)%h%Creset -%C(auto)%d%Creset %<|(100,trunc)%s %C(yellow bold)<%an>%Creset %ad'
         ll = log --graph --pretty=full --all --decorate=full --stat
