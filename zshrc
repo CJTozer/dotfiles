@@ -55,11 +55,21 @@ alias gotest='go test -v . | sed ''/PASS/s//$(printf "\033[32;1mPASS\033[0m")/''
 ## For tmux to work in 256 colour mode
 alias tmux='TERM=xterm-256color tmux'
 ## Alias for next task
-alias tn='tasknote'
-alias ts='task summary'
+# alias tn='tasknote'
+# alias ts='task summary'
+
+# Function for ssh as centos user for OpenStack
+c() {
+  ssh -o StrictHostKeyChecking=no centos@$1
+}
+
+# Function for calculator
+calc () {
+  bc -l <<< "$@"
+}
 
 # Path
-export PATH=$PATH:~/path/
+export PATH=$PATH:~/path/:/opt/pycharm-community-2017.3.3/bin
 
 # FZF - needs installing so only source if installed.
 if [ -f ~/.fzf.zsh ]

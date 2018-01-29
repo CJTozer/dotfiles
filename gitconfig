@@ -1,6 +1,6 @@
 [user]
         name = Chris Tozer
-        email = christopherjtozer@gmail.com
+        email = chris.tozer@metaswitch.com
 [core]
         excludesfile = ~/.gitignore
         editor = vim
