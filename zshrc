@@ -23,6 +23,10 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # z plugin for navigation
 antigen bundle rupa/z
 
+# Better searching for z
+antigen bundle andrewferrier/fzf-z
+export FZFZ_EXCLUDE_PATTERN="/.git"
+
 # k command for colourful ls
 antigen bundle supercrabtree/k
 
@@ -71,6 +75,10 @@ calc () {
 # Path
 export PATH=$PATH:~/path/:/opt/pycharm-community-2017.3.3/bin
 
+# virtualenvwrapper
+export WORKON_HOME=~/venvs/
+source /usr/bin/virtualenvwrapper.sh
+
 # FZF - needs installing so only source if installed.
 if [ -f ~/.fzf.zsh ]
 then
@@ -91,4 +99,12 @@ export AXC_THEME=884.0134
 if [ -f ~/.zshrc_user ]
 then
   source ~/.zshrc_user
+fi
+
+# If no fzf, give instructions
+if ! command -v fzf > /dev/null
+then
+  echo "\`fzf\` is not installed.  To install it, run:"
+  echo "  $ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf"
+  echo "  $ ~/.fzf/install"
 fi
