@@ -10,6 +10,7 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
+antigen bundle git-extras
 antigen bundle go
 antigen bundle command-not-found
 antigen bundle tmuxinator
