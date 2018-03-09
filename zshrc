@@ -10,6 +10,7 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
+antigen bundle git-extras
 antigen bundle go
 antigen bundle command-not-found
 antigen bundle tmuxinator
@@ -77,6 +78,12 @@ fi
 
 # Don't share history
 setopt no_share_history
+
+# Useful CD options
+setopt autocd
+setopt autopushd
+setopt pushdsilent
+setopt pushdignoredups
 
 # Terminal type
 export TERM="xterm-256color"

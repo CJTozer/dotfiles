@@ -14,3 +14,8 @@
 # Python
 *.pyc
 __pycache__
+
+# GTAGS
+GTAGS
+GRTAGS
+GPATH
