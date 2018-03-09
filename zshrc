@@ -89,6 +89,12 @@ fi
 # Don't share history
 setopt no_share_history
 
+# Useful CD options
+setopt autocd
+setopt autopushd
+setopt pushdsilent
+setopt pushdignoredups
+
 # Terminal type
 export TERM="xterm-256color"
 
