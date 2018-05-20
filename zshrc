@@ -68,7 +68,15 @@ export PATH=$PATH:~/path/
 
 # virtualenvwrapper
 export WORKON_HOME=~/venvs/
-source /usr/bin/virtualenvwrapper.sh
+if [ -f /usr/bin/virtualenvwrapper.sh ]
+then
+  source /usr/bin/virtualenvwrapper.sh
+elif [ -f /usr/local/bin/virtualenvwrapper.sh ]
+then
+  source /usr/local/bin/virtualenvwrapper.sh
+else
+  echo "virtualenvwrapper.sh not found, install with \`pip install virtualenvwrapper\`"
+fi
 
 # FZF - needs installing so only source if installed.
 if [ -f ~/.fzf.zsh ]
