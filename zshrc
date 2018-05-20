@@ -55,6 +55,9 @@ export ZSH_THEME_GIT_PROMPT_PREFIX=" "
 # Needed for ctrl-x ctrl-e to work for some reason...
 export EDITOR=vim
 
+# Set less -RXF for nicer interaction with git diff, paging and colour
+LESS="-RXF"
+
 # Alias
 alias gotest='go test -v . | sed ''/PASS/s//$(printf "\033[32;1mPASS\033[0m")/'' | sed ''/FAIL/s//$(printf "\033[31;1mFAIL\033[0m")/'' | sed ''/RUN/s//$(printf "\033[0;1mRUN\033[0m")/'''
 ## For tmux to work in 256 colour mode
