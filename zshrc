@@ -98,10 +98,17 @@ then
   source ~/.zshrc_user
 fi
 
-# If no fzf, give instructions
+# If no fzf, try to install it
 if ! command -v fzf > /dev/null
 then
-  echo "\`fzf\` is not installed.  To install it, run:"
-  echo "  $ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf"
-  echo "  $ ~/.fzf/install"
+  echo "\`fzf\` is not installed.  Attempting to install..."
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+
+# If no tpm, try to install it
+if [ ! -d ~/.tmux/plugins/tpm ]
+then
+  echo "\`tpm\` is not installed.  Attempting to install..."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
