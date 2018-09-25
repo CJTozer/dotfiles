@@ -65,7 +65,24 @@ alias tmux='TERM=xterm-256color tmux'
 
 # Function for ssh as centos user for OpenStack
 c() {
-  ssh -o StrictHostKeyChecking=no centos@$1
+  # Is the input an array?
+  arr=($(echo $1 | tr -d '[]' | tr ',' ' '))
+  if [ "${#arr[@]}" -eq "1" ]
+  then
+    target=${arr[1]}
+  else
+    PS3="Please select an IP: "
+    select opt in $arr
+    do
+      target=${opt}
+      break
+    done
+  fi
+
+  # Which user do we want?
+  user=${2:-centos}
+
+  ssh -o StrictHostKeyChecking=no $user@$target
 }
 
 # Function for calculator
@@ -115,3 +132,8 @@ then
   echo "  $ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf"
   echo "  $ ~/.fzf/install"
 fi
+
+function rust-dev {
+  docker run --rm -it -v ${PWD}:/root/src -v /data/cjt/.ssh:/mnt -v /var/agentx:/var/agentx artifactory.metaswitch.com:6555/images.core/rust-dev:1.2 bash -c "eval \$(ssh-agent -s) && s
+  sh-add /mnt/id_rsa && yum -y install net-snmp-devel pciutils-devel && bash $@"
+}
