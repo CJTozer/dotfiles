@@ -8,6 +8,7 @@
 [alias]
         st = status
         co = checkout
+        cop = !git checkout $1 && git pull && true
         c- = checkout --
         br = !~/path/br
         ci = commit
@@ -16,7 +17,7 @@
         cam = commit -a -m
         current = rev-parse --abbrev-ref HEAD
         fo = fetch origin
-        pp = !CURRENT=$(git current) && git push -u $1 $CURRENT && true
+        pp = !CURRENT=$(git current) && git push -u ${1:-origin} $CURRENT && true
         amend = commit --amend
         l = log --graph --abbrev-commit --all --date=local --pretty=format:'%C(white)%h%Creset -%C(auto)%d%Creset %<|(100,trunc)%s %C(yellow bold)<%an>%Creset %ad'
         ll = log --graph --pretty=full --all --decorate=full --stat

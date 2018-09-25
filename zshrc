@@ -55,6 +55,9 @@ export ZSH_THEME_GIT_PROMPT_PREFIX=" "
 # Needed for ctrl-x ctrl-e to work for some reason...
 export EDITOR=vim
 
+# Set less -RXF for nicer interaction with git diff, paging and colour
+LESS="-RXF"
+
 # Alias
 alias gotest='go test -v . | sed ''/PASS/s//$(printf "\033[32;1mPASS\033[0m")/'' | sed ''/FAIL/s//$(printf "\033[31;1mFAIL\033[0m")/'' | sed ''/RUN/s//$(printf "\033[0;1mRUN\033[0m")/'''
 ## For tmux to work in 256 colour mode
@@ -95,7 +98,15 @@ export PATH=$PATH:~/path/:/opt/pycharm-community-2017.3.3/bin
 
 # virtualenvwrapper
 export WORKON_HOME=~/venvs/
-source /usr/bin/virtualenvwrapper.sh
+if [ -f /usr/bin/virtualenvwrapper.sh ]
+then
+  source /usr/bin/virtualenvwrapper.sh
+elif [ -f /usr/local/bin/virtualenvwrapper.sh ]
+then
+  source /usr/local/bin/virtualenvwrapper.sh
+else
+  echo "virtualenvwrapper.sh not found, install with \`pip install virtualenvwrapper\`"
+fi
 
 # FZF - needs installing so only source if installed.
 if [ -f ~/.fzf.zsh ]
@@ -125,12 +136,19 @@ then
   source ~/.zshrc_user
 fi
 
-# If no fzf, give instructions
+# If no fzf, try to install it
 if ! command -v fzf > /dev/null
 then
-  echo "\`fzf\` is not installed.  To install it, run:"
-  echo "  $ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf"
-  echo "  $ ~/.fzf/install"
+  echo "\`fzf\` is not installed.  Attempting to install..."
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+
+# If no tpm, try to install it
+if [ ! -d ~/.tmux/plugins/tpm ]
+then
+  echo "\`tpm\` is not installed.  Attempting to install..."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
 function rust-dev {
