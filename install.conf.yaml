@@ -21,6 +21,7 @@
     ~/.taskrc: taskrc
     ~/.tmux.conf: tmux.conf
     ~/.tmux.statusline.conf: tmux.statusline.conf
+    ~/.utils: utils
     ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zshrc: zshrc

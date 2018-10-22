@@ -108,12 +108,6 @@ else
   echo "virtualenvwrapper.sh not found, install with \`pip install virtualenvwrapper\`"
 fi
 
-# FZF - needs installing so only source if installed.
-if [ -f ~/.fzf.zsh ]
-then
-  source ~/.fzf.zsh
-fi
-
 # Don't share history
 setopt no_share_history
 
@@ -143,6 +137,7 @@ then
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
 fi
+source ~/.fzf.zsh
 
 # If no tpm, try to install it
 if [ ! -d ~/.tmux/plugins/tpm ]
@@ -155,3 +150,6 @@ function rust-dev {
   docker run --rm -it -v ${PWD}:/root/src -v /data/cjt/.ssh:/mnt -v /var/agentx:/var/agentx artifactory.metaswitch.com:6555/images.core/rust-dev:1.2 bash -c "eval \$(ssh-agent -s) && s
   sh-add /mnt/id_rsa && yum -y install net-snmp-devel pciutils-devel && bash $@"
 }
+
+# Source Git fzf goodness
+source ~/.utils/git-fzf.sh
