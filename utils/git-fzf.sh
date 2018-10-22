@@ -11,9 +11,10 @@ fzf_git_choose_branch() {
     TARGET_BRANCH=$(git branch | fzf-tmux --preview="$PREVIEW_COMMAND" --ansi | sed -e 's/[\* ]//g')
     if [ ! -z "$TARGET_BRANCH" ]
     then
-        echo "Attempting to switch to branch: $TARGET_BRANCH"
+        echo -e ""
         git checkout $TARGET_BRANCH
     fi
+    zle reset-prompt
 }
 zle -N fzf_git_choose_branch
 bindkey '^@b' fzf_git_choose_branch
@@ -22,8 +23,30 @@ bindkey '^@b' fzf_git_choose_branch
 fzf_git_diff() {
     is_in_git_repo || return
 
-    PREVIEW_COMMAND='git diff --color=always {-1}'
-    git diff --name-only | fzf-tmux --preview="$PREVIEW_COMMAND" -d "70%" --ansi > /dev/null
+    PREVIEW_COMMAND='git diff --stat --color=always {-1}'
+    TARGET_BRANCH=$(git branch --all | fzf-tmux --preview="$PREVIEW_COMMAND" --ansi | sed -e 's/[\* ]//g')
+    if [ ! -z "$TARGET_BRANCH" ]
+    then
+        PREVIEW_COMMAND="git diff --color=always $TARGET_BRANCH.. -- {-1}"
+        git diff --name-only $TARGET_BRANCH | fzf-tmux --preview="$PREVIEW_COMMAND" -d "70%" --ansi > /dev/null
+    fi
+    zle reset-prompt
 }
 zle -N fzf_git_diff
 bindkey '^@d' fzf_git_diff
+
+# Show diffs for merge options (ctrl-space,M)
+fzf_git_merge() {
+    is_in_git_repo || return
+
+    PREVIEW_COMMAND='git diff --stat --color=always {-1}'
+    TARGET_BRANCH=$(git branch --all | fzf-tmux --preview="$PREVIEW_COMMAND" --ansi | sed -e 's/[\* ]//g')
+    if [ ! -z "$TARGET_BRANCH" ]
+    then
+        echo -e ""
+        git merge $TARGET_BRANCH
+    fi
+    zle reset-prompt
+}
+zle -N fzf_git_merge
+bindkey '^@m' fzf_git_merge
