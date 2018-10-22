@@ -27,6 +27,7 @@ antigen bundle rupa/z
 # Better searching for z
 antigen bundle andrewferrier/fzf-z
 export FZFZ_EXCLUDE_PATTERN="/.git"
+export FZF_DEFAULT_OPTS="--height 50% --reverse"
 
 # k command for colourful ls
 antigen bundle supercrabtree/k
