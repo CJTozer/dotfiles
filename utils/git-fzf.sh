@@ -24,10 +24,10 @@ fzf_git_diff() {
     is_in_git_repo || return
 
     PREVIEW_COMMAND='git diff --stat --color=always {-1}'
-    TARGET_BRANCH=$(git branch --all | fzf-tmux --preview="$PREVIEW_COMMAND" --ansi | sed -e 's/[\* ]//g')
+    TARGET_BRANCH=$(echo "  HEAD\n$(git branch --all)" | fzf-tmux --preview="$PREVIEW_COMMAND" --ansi | sed -e 's/[\* ]//g')
     if [ ! -z "$TARGET_BRANCH" ]
     then
-        PREVIEW_COMMAND="git diff --color=always $TARGET_BRANCH.. -- {-1}"
+        PREVIEW_COMMAND="git diff --color=always $TARGET_BRANCH -- {-1}"
         git diff --name-only $TARGET_BRANCH | fzf-tmux --preview="$PREVIEW_COMMAND" -d "70%" --ansi > /dev/null
     fi
     zle reset-prompt

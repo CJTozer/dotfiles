@@ -1,3 +1,5 @@
+var=0
+
 # Define __git_files to prevent really slow autocompletion on large repos
 __git_files () {
   _files
@@ -13,8 +15,8 @@ antigen bundle git
 antigen bundle git-extras
 antigen bundle go
 antigen bundle command-not-found
-antigen bundle tmuxinator
-antigen bundle taskwarrior
+# antigen bundle tmuxinator
+# antigen bundle taskwarrior
 antigen bundle colored-man-pages
 antigen bundle sudo
 
