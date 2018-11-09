@@ -182,11 +182,12 @@ set wildignore+=*.tmp,*.swp,*.so,*.zip,*.cache,*.class
 let g:ctrlp_custom_ignore = {
      \ 'dir': '\v((\.git|\.svn)|/(orlandodocs|publicdocs|build|output))',
           \ }
-          let g:ctrlp_max_files = 910000
-          let g:ctrlp_use_caching = 1
-          let g:ctrlp_clear_cache_on_exit = 0
-          let g:ctrlp_dotfiles = 0
-          let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_max_files = 910000
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_dotfiles = 0
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_regexp = 1
 
 " Tag searching wth CtrlP
 noremap <leader>g :CtrlPGtags<CR>
