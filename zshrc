@@ -37,6 +37,9 @@ antigen bundle supercrabtree/k
 # 'sensible' defaults
 antigen bundle willghatch/zsh-saneopt
 
+# SDE TMUX shenanigans
+antigen bundle https://git.datcon.co.uk/cjt/sde-tmux
+
 # Load the theme.
 export BULLETTRAIN_PROMPT_SEPARATE_LINE=false
 export BULLETTRAIN_PROMPT_ADD_NEWLINE=false
