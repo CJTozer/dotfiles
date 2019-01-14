@@ -6,17 +6,18 @@
 
 - link:
     ~/antigen: antigen
-    ~/.config/i3/config: i3.conf
-    ~/.config/i3blocks/config: i3blocks.conf
     ~/path/br:
         create: true
         path: bin/br
+    ~/.config/i3/config: i3.conf
+    ~/.config/i3blocks/config: i3blocks.conf
     ~/path/git-shamend:
         create: true
         path: bin/git-shamend
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
     ~/.holidays: holidays
+    ~/.spacemacs: spacemacs
     ~/path/tasknote:
         create: true
         path: bin/tasknote
