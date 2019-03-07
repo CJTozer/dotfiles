@@ -31,10 +31,18 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     haskell
+     ansible
+     javascript
+     ;; Utils for dired
+     vinegar
+     csv
+     go
      rust
      yaml
      html
      python
+     shell-scripts
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -57,6 +65,8 @@ values."
      gtags
      c-c++
      semantic
+     ;; https://github.com/syl20bnr/spacemacs/issues/9269#issuecomment-317393107
+     orgwiki
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -134,7 +144,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai-cjt
+   dotspacemacs-themes '(doom-molokai
+                         monokai-cjt
                          spacemacs-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -360,6 +371,40 @@ you should place your code here."
 
   ;; Set root directory for projectile to find projects
   (setq projectile-project-search-path '("~/workspace/"))
+
+  ;; Set root of org-wiki
+  (setq org-wiki-location "~/workspace/wiki/")
+
+  ;; Load robot-mode
+  (load-file "~/tmp/robot-mode.el")
+
+  ;; RDL's `qs-bump-dep' and `qs-bump-version'
+  (defun qs-bump-dep ()
+    "Bump the thing at point to a user specified version"
+    (interactive)
+    (let* ((dep (thing-at-point 'symbol))
+           (version (read-string (format "Bump %s to: " dep))))
+      (message "Bumping %s to version %s" dep version)
+      (call-process "qs" nil nil nil "bump-dep" dep version)))
+
+  (defmacro in-directory (dir form)
+    `(let ((olddir (nth 1 (split-string (pwd)))))
+       (unwind-protect
+           (progn
+             (cd ,dir)
+             ,form)
+         (cd olddir))))
+
+  (defun qs-bump-version (bump)
+    "Bump the version of the current project"
+    (interactive (list
+                  (helm :sources
+                        '((name . "Bump version")
+                          (candidates . ("major" "minor" "patch"))
+                          (action . (lambda (c) c))))))
+    (message "Doing %s version bump" bump)
+    (in-directory (projectile-project-root)
+                  (call-process "qs" nil nil nil "bump-version" bump)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -369,18 +414,63 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#1B2229" "#e74c3c" "#b6e63e" "#e2c770" "#268bd2" "#fb2874" "#66d9ef" "#ffffff"])
+ '(custom-enabled-themes (quote (doom-monokai)))
  '(custom-safe-themes
    (quote
-    ("ab9b08d53d4d624dc515fe341d4b67951032cc655443b12b1b2bae1c77722b0c" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d1ede12c09296a84d007ef121cd72061c2c6722fcb02cb50a77d9eae4138a3ff" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" default)))
+    ("100e7c5956d7bb3fd0eebff57fde6de8f3b9fafa056a2519f169f85199cc1c96" "ab9b08d53d4d624dc515fe341d4b67951032cc655443b12b1b2bae1c77722b0c" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d1ede12c09296a84d007ef121cd72061c2c6722fcb02cb50a77d9eae4138a3ff" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" default)))
  '(evil-want-Y-yank-to-eol nil)
+ '(fci-rule-color "#555556")
  '(global-highlight-parentheses-mode t)
+ '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#fd971f"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#b6e63e"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#525254"))
  '(org-agenda-files (quote ("/data/cjt/TODOs.org")))
+ '(org-wiki-template
+   "#+TITLE: %n
+#+DESCRIPTION:
+#+KEYWORDS:
+#+STARTUP:  content
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+
+- [[wiki:index][Index]]
+
+- Related: 
+
+* %n
+")
  '(package-selected-packages
    (quote
-    (flycheck-rust flycheck-pos-tip flycheck toml-mode racer pos-tip cargo rust-mode yaml-mode diff-hl web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data rainbow-mode rainbow-identifiers color-identifiers-mode yasnippet-snippets stickyfunc-enhance srefactor solarized-theme monokai-alt-theme disaster company-c-headers cmake-mode clang-format ggtags helm-gtags mmm-mode markdown-toc markdown-mode helm-company helm-c-yasnippet gh-md fuzzy company-statistics company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub treepy let-alist graphql with-editor yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic color-theme-sanityinc-tomorrow monokai-theme org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu undo-tree adaptive-wrap ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-escape evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode jinja2-mode company-ansible ansible-doc ansible web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode dockerfile-mode doom-modeline doom-themes org-wiki csv-mode insert-shebang fish-mode company-shell go-guru go-eldoc company-go go-mode flycheck-rust flycheck-pos-tip flycheck toml-mode racer pos-tip cargo rust-mode yaml-mode diff-hl web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data rainbow-mode rainbow-identifiers color-identifiers-mode yasnippet-snippets stickyfunc-enhance srefactor solarized-theme monokai-alt-theme disaster company-c-headers cmake-mode clang-format ggtags helm-gtags mmm-mode markdown-toc markdown-mode helm-company helm-c-yasnippet gh-md fuzzy company-statistics company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub treepy let-alist graphql with-editor yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic color-theme-sanityinc-tomorrow monokai-theme org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot spinner evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu undo-tree adaptive-wrap ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smartparens restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-unimpaired evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-escape evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+ '(vc-annotate-background "#1c1e1f")
+ '(vc-annotate-color-map
+   (list
+    (cons 20 "#b6e63e")
+    (cons 40 "#c4db4e")
+    (cons 60 "#d3d15f")
+    (cons 80 "#e2c770")
+    (cons 100 "#ebb755")
+    (cons 120 "#f3a73a")
+    (cons 140 "#fd971f")
+    (cons 160 "#fc723b")
+    (cons 180 "#fb4d57")
+    (cons 200 "#fb2874")
+    (cons 220 "#f43461")
+    (cons 240 "#ed404e")
+    (cons 260 "#e74c3c")
+    (cons 280 "#c14d41")
+    (cons 300 "#9c4f48")
+    (cons 320 "#77504e")
+    (cons 340 "#555556")
+    (cons 360 "#555556")))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(helm-match ((t (:inherit bold :weight bold)))))
+ '(font-lock-comment-face ((t (:foreground "ivory4"))))
+ '(helm-match ((t (:inherit bold :weight bold))))
+ '(org-level-1 ((t (:background "#1d1f20" :foreground "#fb2874" :weight bold :height 1.0)))))
