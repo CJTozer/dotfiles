@@ -421,7 +421,7 @@ you should place your code here."
    (quote
     ("100e7c5956d7bb3fd0eebff57fde6de8f3b9fafa056a2519f169f85199cc1c96" "ab9b08d53d4d624dc515fe341d4b67951032cc655443b12b1b2bae1c77722b0c" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d1ede12c09296a84d007ef121cd72061c2c6722fcb02cb50a77d9eae4138a3ff" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" default)))
  '(evil-want-Y-yank-to-eol nil)
- '(fci-rule-color "#555556")
+ '(fci-rule-color "#555556" t)
  '(global-highlight-parentheses-mode t)
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#fd971f"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#b6e63e"))
@@ -433,6 +433,8 @@ you should place your code here."
 #+KEYWORDS:
 #+STARTUP:  content
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+# #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-bigblow.setup
+#+OPTIONS: num:nil
 
 
 - [[wiki:index][Index]]
