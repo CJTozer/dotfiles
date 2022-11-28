@@ -13,7 +13,6 @@ antigen use oh-my-zsh
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
 antigen bundle git-extras
-antigen bundle go
 antigen bundle command-not-found
 # antigen bundle tmuxinator
 # antigen bundle taskwarrior
@@ -48,7 +47,7 @@ export BULLETTRAIN_GIT_EXTENDED=false # Simple 'is workspace dirty' only to save
 export BULLETTRAIN_VIRTUALENV_PREFIX=
 export BULLETTRAIN_VIRTUALENV_BG=cyan
 export BULLETTRAIN_VIRTUALENV_FG=white
-BULLETTRAIN_PROMPT_ORDER=(time status custom context dir perl ruby virtualenv go git hg cmd_exec_time)
+BULLETTRAIN_PROMPT_ORDER=(time status custom context dir perl ruby virtualenv git hg cmd_exec_time)
 antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
 # Tell antigen that you're done.
@@ -62,7 +61,6 @@ export EDITOR=vim
 LESS="-RXF"
 
 # Alias
-alias gotest='go test -v . | sed ''/PASS/s//$(printf "\033[32;1mPASS\033[0m")/'' | sed ''/FAIL/s//$(printf "\033[31;1mFAIL\033[0m")/'' | sed ''/RUN/s//$(printf "\033[0;1mRUN\033[0m")/'''
 ## For tmux to work in 256 colour mode
 alias tmux='TERM=xterm-256color tmux'
 ## Alias for next task
@@ -97,7 +95,7 @@ calc () {
 }
 
 # Path
-export PATH=$PATH:~/path/:/opt/pycharm-community-2017.3.3/bin
+# export PATH=$PATH:~/path/:/opt/pycharm-community-2017.3.3/bin
 
 # virtualenvwrapper
 export WORKON_HOME=~/venvs/
@@ -112,7 +110,7 @@ else
 fi
 
 # Don't share history
-setopt no_share_history
+# setopt no_share_history
 
 # Useful CD options
 setopt autocd
