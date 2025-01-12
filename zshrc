@@ -47,7 +47,7 @@ export BULLETTRAIN_GIT_EXTENDED=false # Simple 'is workspace dirty' only to save
 export BULLETTRAIN_VIRTUALENV_PREFIX=
 export BULLETTRAIN_VIRTUALENV_BG=cyan
 export BULLETTRAIN_VIRTUALENV_FG=white
-BULLETTRAIN_PROMPT_ORDER=(time status custom context dir perl ruby virtualenv git hg cmd_exec_time)
+BULLETTRAIN_PROMPT_ORDER=(time status custom context dir virtualenv git cmd_exec_time)
 antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
 # Tell antigen that you're done.
@@ -66,6 +66,9 @@ alias tmux='TERM=xterm-256color tmux'
 ## Alias for next task
 # alias tn='tasknote'
 # alias ts='task summary'
+
+# Cubing
+alias cube='ssh cube@188.245.244.146'
 
 # Function for ssh as centos user for OpenStack
 c() {

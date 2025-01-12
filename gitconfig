@@ -1,6 +1,6 @@
 [user]
         name = Chris Tozer
-        email = chris.tozer@metaswitch.com
+        email = christopherjtozer@gmail.com
 [core]
         excludesfile = ~/.gitignore
         editor = vim
@@ -49,3 +49,5 @@
 [push]
         default = simple
         followTags = true
+[credential]
+	helper = store --file ~/.my-git-creds
